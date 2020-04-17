@@ -15,7 +15,8 @@ app.get('/', (req, res) => {
 })
 
 //Listen on port 3000
-server = app.listen(3000)
+var port = process.env.PORT || 3000
+server = app.listen(port)
 
 
 
@@ -38,6 +39,7 @@ io.on('connection', (socket) => {
     //listen on new_message
     socket.on('new_message', (data) => {
         //broadcast the new message
+		console.log('new_message in server.js', data.message);
         io.sockets.emit('new_message', {message : data.message, username : socket.username});
     })
 
